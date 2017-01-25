@@ -28,13 +28,26 @@ namespace CityInfoCoreApi
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler();
+            }
 
             app.UseMvc();
 
-            app.Run((context) =>
+            app.UseMvc(config =>
             {
-                throw new Exception("Example exception");
+                config.MapRoute(
+                    name: "Default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" }
+                    );
             });
+
+            //app.Run((context) =>
+            //{
+            //    throw new Exception("Example exception");
+            //});
 
             //app.Run(async (context) =>
             //{
