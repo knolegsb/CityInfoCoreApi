@@ -12,7 +12,7 @@ namespace CityInfoCoreApi.Controllers
     public class CitiesController : Controller
     {
         [HttpGet()]
-        public JsonResult GetCities()
+        public IActionResult GetCities()
         {
             //return new JsonResult(new List<object>()
             //{
@@ -20,7 +20,19 @@ namespace CityInfoCoreApi.Controllers
             //    new { Id = 2, Name="Antwerp"}
             //});
 
-            return new JsonResult(CitiesDataStore.Current.Cities);
+            var temp = new JsonResult(CitiesDataStore.Current.Cities);
+            temp.StatusCode = 200;
+            return temp;
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCity(int id)
+        {
+            var cityToReturn = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+            if (cityToReturn == null){
+                return NotFound();
+            }
+            return Ok(cityToReturn);
         }
     }
 }
