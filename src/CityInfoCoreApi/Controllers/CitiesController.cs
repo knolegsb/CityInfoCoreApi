@@ -20,9 +20,11 @@ namespace CityInfoCoreApi.Controllers
             //    new { Id = 2, Name="Antwerp"}
             //});
 
-            var temp = new JsonResult(CitiesDataStore.Current.Cities);
-            temp.StatusCode = 200;
-            return temp;
+            //var temp = new JsonResult(CitiesDataStore.Current.Cities);
+            //temp.StatusCode = 200;
+            //return temp;
+
+            return Ok(CitiesDataStore.Current.Cities);
         }
 
         [HttpGet("{id}")]
